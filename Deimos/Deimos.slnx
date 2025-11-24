@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Deimos.Tests/Deimos.Tests.csproj" />
+  <Project Path="Deimos/Deimos.csproj" />
+</Solution>
