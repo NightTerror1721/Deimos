@@ -1,8 +1,9 @@
 ﻿#nullable enable
 
+using Deimos;
 using Deimos.Lexer;
 
-namespace Deimos.AST
+namespace Deimos.AST.Types
 {
     public sealed class VoidTypeNode : TypeNode
     {
