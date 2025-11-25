@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using Deimos.Lexer;
+using Deimos.Utils;
 
 namespace Deimos.AST
 {
@@ -13,5 +14,8 @@ namespace Deimos.AST
         protected TypeNode(int fromLine, int fromColumn, int toLine, int toColumn) :
             base(fromLine, fromColumn, toLine, toColumn)
         { }
+
+        public abstract override string ToString();
+        public sealed override string ToString(Indentation indent) => ToString();
     }
 }

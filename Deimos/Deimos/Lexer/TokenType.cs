@@ -79,6 +79,7 @@ namespace Deimos.Lexer
         Func,               // func: function declaration
         Class,              // class: class declaration
         Interface,          // interface: interface declaration
+        Enum,               // enum: enumeration declaration
         Var,                // var: variable declaration
         Const,              // const: constant declaration
         If,                 // if
@@ -123,6 +124,7 @@ namespace Deimos.Lexer
             { "func", TokenType.Func },
             { "class", TokenType.Class },
             { "interface", TokenType.Interface },
+            { "enum", TokenType.Enum },
             { "var", TokenType.Var },
             { "const", TokenType.Const },
             { "if", TokenType.If },

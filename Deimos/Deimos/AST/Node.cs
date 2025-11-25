@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using Deimos.Lexer;
+using Deimos.Utils;
 
 namespace Deimos.AST
 {
@@ -26,6 +27,7 @@ namespace Deimos.AST
         protected Node(int fromLine, int fromColumn, int toLine, int toColumn) :
             this(TextRange.From(fromLine, fromColumn, toLine, toColumn)) { }
 
-        public abstract override string ToString();
+        public override string ToString() => ToString(Indentation.None);
+        public abstract string ToString(Indentation indent);
     }
 }
