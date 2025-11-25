@@ -78,6 +78,7 @@ namespace Deimos.Lexer
         // Keywords //
         Func,               // func: function declaration
         Class,              // class: class declaration
+        Interface,          // interface: interface declaration
         Var,                // var: variable declaration
         Const,              // const: constant declaration
         If,                 // if
@@ -86,6 +87,22 @@ namespace Deimos.Lexer
         For,                // for
         Foreach,            // foreach
         Return,             // return
+        Public,             // public
+        Protected,          // protected
+        Private,            // private
+        Sealed,             // sealed
+        Readonly,           // readonly
+        Static,             // static
+        Abstract,           // abstract
+        Override,           // override
+        Virtual,            // virtual
+        Is,                 // is
+        As,                 // as
+        Typeof,             // typeof
+        Instanceof,         // instanceof
+        In,                 // in
+        This,               // this
+        Super,              // super
         True,               // true
         False,              // false
         Null,               // null
@@ -105,6 +122,7 @@ namespace Deimos.Lexer
         {
             { "func", TokenType.Func },
             { "class", TokenType.Class },
+            { "interface", TokenType.Interface },
             { "var", TokenType.Var },
             { "const", TokenType.Const },
             { "if", TokenType.If },
@@ -113,6 +131,22 @@ namespace Deimos.Lexer
             { "for", TokenType.For },
             { "foreach", TokenType.Foreach },
             { "return", TokenType.Return },
+            { "public", TokenType.Public },
+            { "protected", TokenType.Protected },
+            { "private", TokenType.Private },
+            { "sealed", TokenType.Sealed },
+            { "readonly", TokenType.Readonly },
+            { "static", TokenType.Static },
+            { "abstract", TokenType.Abstract },
+            { "override", TokenType.Override },
+            { "virtual", TokenType.Virtual },
+            { "is", TokenType.Is },
+            { "as", TokenType.As },
+            { "typeof", TokenType.Typeof },
+            { "instanceof", TokenType.Instanceof },
+            { "in", TokenType.In },
+            { "this", TokenType.This },
+            { "super", TokenType.Super },
             { "true", TokenType.True },
             { "false", TokenType.False },
             { "null", TokenType.Null },
