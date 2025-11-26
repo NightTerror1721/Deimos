@@ -12,7 +12,7 @@ namespace Deimos.AST.Declarations
             Modifiers modifiers,
             IEnumerable<TypeParameterNode> typeParameterNodes,
             IEnumerable<TypeNode> parents,
-            IEnumerable<MemberDeclaration> members,
+            IEnumerable<Declaration> members,
             TextRange range
         ) : base(name, modifiers, typeParameterNodes, parents, members, range) { }
 
@@ -21,7 +21,7 @@ namespace Deimos.AST.Declarations
             Modifiers modifiers,
             IEnumerable<TypeParameterNode> typeParameterNodes,
             IEnumerable<TypeNode> parents,
-            IEnumerable<MemberDeclaration> members,
+            IEnumerable<Declaration> members,
             TextIndex from,
             TextIndex to
         ) : base(name, modifiers, typeParameterNodes, parents, members, from, to) { }
@@ -31,7 +31,7 @@ namespace Deimos.AST.Declarations
             Modifiers modifiers,
             IEnumerable<TypeParameterNode> typeParameterNodes,
             IEnumerable<TypeNode> parents,
-            IEnumerable<MemberDeclaration> members,
+            IEnumerable<Declaration> members,
             int fromLine,
             int fromColumn,
             int toLine,

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Deimos.AST.Private
 {
-    public abstract class AbstractFunctionDeclaration : MemberDeclaration
+    public abstract class AbstractFunctionDeclaration : Declaration
     {
         public string Name { get; }
         public ReadOnlyArray<TypeParameterNode> TypeParameters { get; }

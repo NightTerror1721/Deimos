@@ -4,9 +4,9 @@ using Deimos.AST.Declarations;
 using Deimos.Lexer;
 using Deimos.Utils;
 
-namespace Deimos.AST.Private
+namespace Deimos.AST.Statements
 {
-    public abstract class AbstractVariableDeclaration : MemberDeclaration
+    public sealed class VariableDeclarationStatement : Statement
     {
         public VariableDeclarationKind VarKind { get; }
         public TypeNode? Type { get; }
@@ -18,14 +18,13 @@ namespace Deimos.AST.Private
         public bool HasExplicitType => Type != null;
         public bool HasInitializer => Initializer != null;
 
-        public AbstractVariableDeclaration(
+        public VariableDeclarationStatement(
             VariableDeclarationKind varKind,
             string name,
             TypeNode? type,
             Expression? initializer,
-            Modifiers modifiers,
             TextRange range
-        ) : base(modifiers, range)
+        ) : base(range)
         {
             VarKind = varKind;
             Name = name ?? throw new System.ArgumentNullException(nameof(name));
@@ -33,15 +32,14 @@ namespace Deimos.AST.Private
             Initializer = initializer;
         }
 
-        public AbstractVariableDeclaration(
+        public VariableDeclarationStatement(
             VariableDeclarationKind varKind,
             string name,
             TypeNode? type,
             Expression? initializer,
-            Modifiers modifiers,
             TextIndex from,
             TextIndex to
-        ) : base(modifiers, from, to)
+        ) : base(from, to)
         {
             VarKind = varKind;
             Name = name ?? throw new System.ArgumentNullException(nameof(name));
@@ -49,17 +47,16 @@ namespace Deimos.AST.Private
             Initializer = initializer;
         }
 
-        public AbstractVariableDeclaration(
+        public VariableDeclarationStatement(
             VariableDeclarationKind varKind,
             string name,
             TypeNode? type,
             Expression? initializer,
-            Modifiers modifiers,
             int fromLine,
             int fromColumn,
             int toLine,
             int toColumn
-        ) : base(modifiers, fromLine, fromColumn, toLine, toColumn)
+        ) : base(fromLine, fromColumn, toLine, toColumn)
         {
             VarKind = varKind;
             Name = name ?? throw new System.ArgumentNullException(nameof(name));
@@ -77,14 +74,7 @@ namespace Deimos.AST.Private
             };
             string typeStr = Type != null ? $"{Type} " : string.Empty;
             string initializerStr = Initializer != null ? $" = {Initializer}" : "";
-            return $"{Modifiers.ToKeywordString()} {varKindStr}{typeStr}{Name}{initializerStr};";
+            return $"{varKindStr}{typeStr}{Name}{initializerStr};";
         }
-    }
-
-    public enum VariableDeclarationKind
-    {
-        Default = 0,
-        Var,
-        Const
     }
 }

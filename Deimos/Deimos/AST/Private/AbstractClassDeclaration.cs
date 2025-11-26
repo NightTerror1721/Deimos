@@ -6,19 +6,19 @@ using System.Text;
 
 namespace Deimos.AST.Private
 {
-    public abstract class AbstractClassDeclaration : MemberDeclaration
+    public abstract class AbstractClassDeclaration : Declaration
     {
         public string Name { get; }
         public ReadOnlyArray<TypeParameterNode> TypeParameterNodes { get; }
         public ReadOnlyArray<TypeNode> Parents { get; }
-        public ReadOnlyArray<MemberDeclaration> Members { get; }
+        public ReadOnlyArray<Declaration> Members { get; }
 
         public AbstractClassDeclaration(
             string name,
             Modifiers modifiers,
             IEnumerable<TypeParameterNode> typeParameterNodes,
             IEnumerable<TypeNode> parents,
-            IEnumerable<MemberDeclaration> members,
+            IEnumerable<Declaration> members,
             TextRange range
         ) : base(modifiers, range)
         {
@@ -33,7 +33,7 @@ namespace Deimos.AST.Private
             Modifiers modifiers,
             IEnumerable<TypeParameterNode> typeParameterNodes,
             IEnumerable<TypeNode> parents,
-            IEnumerable<MemberDeclaration> members,
+            IEnumerable<Declaration> members,
             TextIndex from,
             TextIndex to
         ) : base(modifiers, from, to)
@@ -49,7 +49,7 @@ namespace Deimos.AST.Private
             Modifiers modifiers,
             IEnumerable<TypeParameterNode> typeParameterNodes,
             IEnumerable<TypeNode> parents,
-            IEnumerable<MemberDeclaration> members,
+            IEnumerable<Declaration> members,
             int fromLine,
             int fromColumn,
             int toLine,

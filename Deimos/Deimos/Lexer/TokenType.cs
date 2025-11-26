@@ -84,6 +84,8 @@ namespace Deimos.Lexer
         Const,              // const: constant declaration
         If,                 // if
         Else,               // else
+        Switch,             // switch
+        Case,               // case
         While,              // while
         For,                // for
         Foreach,            // foreach
@@ -92,7 +94,6 @@ namespace Deimos.Lexer
         Protected,          // protected
         Private,            // private
         Sealed,             // sealed
-        Readonly,           // readonly
         Static,             // static
         Abstract,           // abstract
         Override,           // override
@@ -129,6 +130,8 @@ namespace Deimos.Lexer
             { "const", TokenType.Const },
             { "if", TokenType.If },
             { "else", TokenType.Else },
+            { "switch", TokenType.Switch },
+            { "case", TokenType.Case },
             { "while", TokenType.While },
             { "for", TokenType.For },
             { "foreach", TokenType.Foreach },
@@ -137,7 +140,6 @@ namespace Deimos.Lexer
             { "protected", TokenType.Protected },
             { "private", TokenType.Private },
             { "sealed", TokenType.Sealed },
-            { "readonly", TokenType.Readonly },
             { "static", TokenType.Static },
             { "abstract", TokenType.Abstract },
             { "override", TokenType.Override },

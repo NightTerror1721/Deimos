@@ -6,12 +6,32 @@ namespace Deimos.AST
 {
     public abstract class Declaration : Node
     {
-        protected Declaration(TextRange range) : base(range) { }
+        public Modifiers Modifiers { get; }
 
-        protected Declaration(TextIndex from, TextIndex to) : base(from, to) { }
+        public bool IsStatic => Modifiers.IsStatic();
+        public bool IsSealed => Modifiers.IsSealed();
+        public bool IsAbstract => Modifiers.IsAbstract();
+        public bool IsOverride => Modifiers.IsOverride();
+        public bool IsPublic => Modifiers.IsPublic();
+        public bool IsProtected => Modifiers.IsProtected();
+        public bool IsPrivate => Modifiers.IsPrivate();
 
-        protected Declaration(int fromLine, int fromColumn, int toLine, int toColumn) :
+        public bool HasAccessModifier => Modifiers.HasAnyAccessModifier();
+
+        protected Declaration(Modifiers modifiers, TextRange range) : base(range)
+        {
+            Modifiers = modifiers;
+        }
+
+        protected Declaration(Modifiers modifiers, TextIndex from, TextIndex to) : base(from, to)
+        {
+            Modifiers = modifiers;
+        }
+
+        protected Declaration(Modifiers modifiers, int fromLine, int fromColumn, int toLine, int toColumn) :
             base(fromLine, fromColumn, toLine, toColumn)
-        { }
+        {
+            Modifiers = modifiers;
+        }
     }
 }
