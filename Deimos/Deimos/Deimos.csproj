@@ -12,7 +12,6 @@
     <Folder Include="VM\" />
     <Folder Include="TypeChecker\" />
     <Folder Include="Types\" />
-    <Folder Include="Parser\" />
   </ItemGroup>
 
 </Project>

@@ -15,12 +15,12 @@ namespace Deimos.AST.Types
             ElementTypes = elementTypes?.ToReadOnlyArray() ?? throw new System.ArgumentNullException(nameof(elementTypes));
         }
 
-        public TupleTypeNode(TypeNode[] elementTypes, TextIndex from, TextIndex to) : base(from, to)
+        public TupleTypeNode(IEnumerable<TypeNode> elementTypes, TextIndex from, TextIndex to) : base(from, to)
         {
             ElementTypes = elementTypes?.ToReadOnlyArray() ?? throw new System.ArgumentNullException(nameof(elementTypes));
         }
 
-        public TupleTypeNode(TypeNode[] elementTypes, int fromLine, int fromColumn, int toLine, int toColumn) :
+        public TupleTypeNode(IEnumerable<TypeNode> elementTypes, int fromLine, int fromColumn, int toLine, int toColumn) :
             base(fromLine, fromColumn, toLine, toColumn)
         {
             ElementTypes = elementTypes?.ToReadOnlyArray() ?? throw new System.ArgumentNullException(nameof(elementTypes));

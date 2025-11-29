@@ -10,112 +10,113 @@ namespace Deimos.Lexer
         Invalid = 0,        // represents an invalid or unrecognized token
 
         // Single-character tokens //
-        LeftParen,          // (
-        RightParen,         // )
-        LeftBrace,          // {
-        RightBrace,         // }
-        LeftBracket,        // [
-        RightBracket,       // ]
-        Comma,              // ,
-        Dot,                // .
-        Semicolon,          // ;
-        Colon,              // :
-        Plus,               // +
-        Minus,              // -
-        Asterisk,           // *
-        Slash,              // /
-        Percent,            // %
-        Question,           // ?
-        Bang,               // !
-        Equal,              // =
-        Greater,            // >
-        Less,               // <
-        Ampersand,          // &
-        Pipe,               // |
-        Caret,              // ^
-        Tilde,              // ~
+        LeftParen,              // (
+        RightParen,             // )
+        LeftBrace,              // {
+        RightBrace,             // }
+        LeftBracket,            // [
+        RightBracket,           // ]
+        Comma,                  // ,
+        Dot,                    // .
+        Semicolon,              // ;
+        Colon,                  // :
+        Plus,                   // +
+        Minus,                  // -
+        Asterisk,               // *
+        Slash,                  // /
+        Percent,                // %
+        Question,               // ?
+        Bang,                   // !
+        Equal,                  // =
+        Greater,                // >
+        Less,                   // <
+        Ampersand,              // &
+        Pipe,                   // |
+        Caret,                  // ^
+        Tilde,                  // ~
 
         // Two-character tokens //
-        PlusPlus,           // ++
-        MinusMinus,         // --
-        ShiftLeft,          // <<
-        ShiftRight,         // >>
-        StarStar,           // **
-        PlusEqual,          // +=
-        MinusEqual,         // -=
-        StarEqual,          // *=
-        SlashEqual,         // /=
-        PercentEqual,       // %=
-        AmpersandEqual,     // &=
-        PipeEqual,          // |=
-        CaretEqual,         // ^=
-        EqualEqual,         // ==
-        BangEqual,          // !=
-        GreaterEqual,       // >=
-        LessEqual,          // <=
-        AmpersandAmpersand, // &&
-        PipePipe,           // ||
-        NullSafeAccess,     // ?.
-        NullCoalesce,       // ??
-        Arrow,              // ->
-        DotDot,             // ..
+        PlusPlus,               // ++
+        MinusMinus,             // --
+        ShiftLeft,              // <<
+        ShiftRight,             // >>
+        AsteriskAsterisk,       // **
+        PlusEqual,              // +=
+        MinusEqual,             // -=
+        AsteriskEqual,          // *=
+        SlashEqual,             // /=
+        PercentEqual,           // %=
+        AmpersandEqual,         // &=
+        PipeEqual,              // |=
+        CaretEqual,             // ^=
+        EqualEqual,             // ==
+        BangEqual,              // !=
+        GreaterEqual,           // >=
+        LessEqual,              // <=
+        AmpersandAmpersand,     // &&
+        PipePipe,               // ||
+        NullSafeAccess,         // ?.
+        NullCoalesce,           // ??
+        Arrow,                  // ->
+        DotDot,                 // ..
 
         // Three-character tokens //
-        ShiftLeftEqual,     // <<=
-        ShiftRightEqual,    // >>=
-        StarStarEqual,      // **=
-        NullCoalesceEqual,  // ??=
-        Elipsis,            // ...
+        ShiftLeftEqual,         // <<=
+        ShiftRightEqual,        // >>=
+        AsteriskAsteriskEqual,  // **=
+        NullCoalesceEqual,      // ??=
+        Elipsis,                // ...
 
         // Literals //
-        Identifier,         // variable names, function names, etc.
-        IntLiteral,         // 123, 0b1111011, 0o173, 0x7B
-        FloatLiteral,       // 123.45, 1.23e4
-        StringLiteral,      // "hello", 'c'
-        BoolLiteral,        // true, false
-        NullLiteral,        // null
+        Identifier,             // variable names, function names, etc.
+        IntLiteral,             // 123, 0b1111011, 0o173, 0x7B
+        FloatLiteral,           // 123.45, 1.23e4
+        StringLiteral,          // "hello", 'c'
+        BoolLiteral,            // true, false
+        NullLiteral,            // null
 
         // Keywords //
-        Func,               // func: function declaration
-        Class,              // class: class declaration
-        Interface,          // interface: interface declaration
-        Enum,               // enum: enumeration declaration
-        Var,                // var: variable declaration
-        Const,              // const: constant declaration
-        If,                 // if
-        Else,               // else
-        Switch,             // switch
-        Case,               // case
-        While,              // while
-        For,                // for
-        Foreach,            // foreach
-        Return,             // return
-        Public,             // public
-        Protected,          // protected
-        Private,            // private
-        Sealed,             // sealed
-        Static,             // static
-        Abstract,           // abstract
-        Override,           // override
-        Virtual,            // virtual
-        Is,                 // is
-        As,                 // as
-        Typeof,             // typeof
-        Instanceof,         // instanceof
-        In,                 // in
-        This,               // this
-        Super,              // super
-        True,               // true
-        False,              // false
-        Null,               // null
+        Func,                   // func: function declaration
+        Class,                  // class: class declaration
+        Interface,              // interface: interface declaration
+        Enum,                   // enum: enumeration declaration
+        Var,                    // var: variable declaration
+        Const,                  // const: constant declaration
+        If,                     // if
+        Else,                   // else
+        Switch,                 // switch
+        Case,                   // case
+        While,                  // while
+        For,                    // for
+        Foreach,                // foreach
+        Return,                 // return
+        Public,                 // public
+        Protected,              // protected
+        Private,                // private
+        Sealed,                 // sealed
+        Static,                 // static
+        Abstract,               // abstract
+        Override,               // override
+        Virtual,                // virtual
+        New,                    // new
+        Is,                     // is
+        As,                     // as
+        Typeof,                 // typeof
+        Instanceof,             // instanceof
+        In,                     // in
+        This,                   // this
+        Super,                  // super
+        True,                   // true
+        False,                  // false
+        Null,                   // null
 
         // Primitive Types //
-        Int,                // int
-        Float,              // float
-        Bool,               // bool
-        String,             // string
-        Void,               // void
-        Any,                // any
+        Int,                    // int
+        Float,                  // float
+        Bool,                   // bool
+        String,                 // string
+        Void,                   // void
+        Any,                    // any
     }
 
     public static class TokenTypeUtils
@@ -144,6 +145,7 @@ namespace Deimos.Lexer
             { "abstract", TokenType.Abstract },
             { "override", TokenType.Override },
             { "virtual", TokenType.Virtual },
+            { "new", TokenType.New },
             { "is", TokenType.Is },
             { "as", TokenType.As },
             { "typeof", TokenType.Typeof },

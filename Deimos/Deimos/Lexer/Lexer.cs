@@ -425,10 +425,10 @@ namespace Deimos.Lexer
                 case '*':
                     if (_reader.Match("*"))
                     {
-                        if (_reader.Match('=')) return new Token(TokenType.StarStarEqual, "**=", initialIndex, _reader.Index);
-                        return new Token(TokenType.StarStar, "**", initialIndex, _reader.Index);
+                        if (_reader.Match('=')) return new Token(TokenType.AsteriskAsteriskEqual, "**=", initialIndex, _reader.Index);
+                        return new Token(TokenType.AsteriskAsterisk, "**", initialIndex, _reader.Index);
                     }
-                    if (_reader.Match('=')) return new Token(TokenType.StarEqual, "*=", initialIndex, _reader.Index);
+                    if (_reader.Match('=')) return new Token(TokenType.AsteriskEqual, "*=", initialIndex, _reader.Index);
                     return new Token(TokenType.Asterisk, "*", initialIndex, _reader.Index);
                 case '/':
                     if (_reader.Match('=')) return new Token(TokenType.SlashEqual, "/=", initialIndex, _reader.Index);

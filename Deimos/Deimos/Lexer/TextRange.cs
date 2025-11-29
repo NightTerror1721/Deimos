@@ -6,6 +6,8 @@ namespace Deimos.Lexer
 {
     public readonly struct TextRange : IEquatable<TextRange>, IComparable<TextRange>
     {
+        public static TextRange Zero { get; } = new(TextIndex.Start, TextIndex.Start);
+
         /** Starting offset of the text section. Included */
         public TextIndex Start { get; }
 

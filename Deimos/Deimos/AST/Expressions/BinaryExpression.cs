@@ -12,6 +12,7 @@ namespace Deimos.AST.Expressions
 
         public BinaryExpression(Expression left, BinaryOperator op, Expression right, TextRange range) : base(range)
         {
+            ValidateOperator(op);
             Left = left ?? throw new System.ArgumentNullException(nameof(left));
             Operator = op;
             Right = right ?? throw new System.ArgumentNullException(nameof(right));
@@ -19,6 +20,7 @@ namespace Deimos.AST.Expressions
 
         public BinaryExpression(Expression left, BinaryOperator op, Expression right, TextIndex from, TextIndex to) : base(from, to)
         {
+            ValidateOperator(op);
             Left = left ?? throw new System.ArgumentNullException(nameof(left));
             Operator = op;
             Right = right ?? throw new System.ArgumentNullException(nameof(right));
@@ -27,6 +29,7 @@ namespace Deimos.AST.Expressions
         public BinaryExpression(Expression left, BinaryOperator op, Expression right, int fromLine, int fromColumn, int toLine, int toColumn) :
             base(fromLine, fromColumn, toLine, toColumn)
         {
+            ValidateOperator(op);
             Left = left ?? throw new System.ArgumentNullException(nameof(left));
             Operator = op;
             Right = right ?? throw new System.ArgumentNullException(nameof(right));
@@ -35,6 +38,13 @@ namespace Deimos.AST.Expressions
         public override string ToString()
         {
             return $"{Left} {Operator.ToSymbol()} {Right}";
+        }
+
+        private static void ValidateOperator(BinaryOperator op)
+        {
+            if (op == BinaryOperator.As || op == BinaryOperator.InstanceOf)
+                throw new System.ArgumentException($"The {op} operator has a special function and cannot be used in a \"BinaryExpression\"", nameof(op));
+
         }
     }
 
@@ -69,16 +79,16 @@ namespace Deimos.AST.Expressions
         RightShift,                 // >>
 
         // Assignment Operators
-        Assignment,                 // =
+        Assignment,                 // =<
         AdditionAssignment,         // +=
         SubtractionAssignment,      // -=
         MultiplicationAssignment,   // *=
         DivisionAssignment,         // /=
         ModulusAssignment,          // %=
         ExponentiationAssignment,   // **=
-        BitewiseAndAssignment,      // &=
-        BitewiseOrAssignment,       // |=
-        BitewiseXorAssignment,      // ^=
+        BitwiseAndAssignment,       // &=
+        BitwiseOrAssignment,        // |=
+        BitwiseXorAssignment,       // ^=
         LeftShiftAssignment,        // <<=
         RightShiftAssignment,       // >>=
         NullCoalesceAssignment,     // ??=
@@ -86,6 +96,9 @@ namespace Deimos.AST.Expressions
         // Other Operators
         IdentityCompare,            // is
         Contains,                   // in
+
+        As,                         // as
+        InstanceOf,                 // instanceof
     }
 
     public static class BinaryOperatorUtils
@@ -106,7 +119,9 @@ namespace Deimos.AST.Expressions
                 BinaryOperator.LeftShift or
                 BinaryOperator.RightShift => 10,
 
-                BinaryOperator.IdentityCompare => 9,
+                BinaryOperator.IdentityCompare or
+                BinaryOperator.As or
+                BinaryOperator.InstanceOf => 9,
 
                 BinaryOperator.GreaterThan or
                 BinaryOperator.GreaterThanOrEqual or
@@ -136,8 +151,8 @@ namespace Deimos.AST.Expressions
                 BinaryOperator.DivisionAssignment or
                 BinaryOperator.ModulusAssignment or
                 BinaryOperator.ExponentiationAssignment or
-                BinaryOperator.BitewiseAndAssignment or
-                BinaryOperator.BitewiseOrAssignment or
+                BinaryOperator.BitwiseAndAssignment or
+                BinaryOperator.BitwiseOrAssignment or
                 BinaryOperator.LeftShiftAssignment or
                 BinaryOperator.RightShiftAssignment or
                 BinaryOperator.NullCoalesceAssignment => 1,
@@ -158,11 +173,12 @@ namespace Deimos.AST.Expressions
                 BinaryOperator.DivisionAssignment or
                 BinaryOperator.ModulusAssignment or
                 BinaryOperator.ExponentiationAssignment or
-                BinaryOperator.BitewiseAndAssignment or
-                BinaryOperator.BitewiseOrAssignment or
+                BinaryOperator.BitwiseAndAssignment or
+                BinaryOperator.BitwiseOrAssignment or
                 BinaryOperator.LeftShiftAssignment or
                 BinaryOperator.RightShiftAssignment or
-                BinaryOperator.NullCoalesceAssignment => true,
+                BinaryOperator.NullCoalesceAssignment or
+                BinaryOperator.As => true,
                 _ => false,
             };
         }
@@ -180,8 +196,8 @@ namespace Deimos.AST.Expressions
                 BinaryOperator.DivisionAssignment or
                 BinaryOperator.ModulusAssignment or
                 BinaryOperator.ExponentiationAssignment or
-                BinaryOperator.BitewiseAndAssignment or
-                BinaryOperator.BitewiseOrAssignment or
+                BinaryOperator.BitwiseAndAssignment or
+                BinaryOperator.BitwiseOrAssignment or
                 BinaryOperator.LeftShiftAssignment or
                 BinaryOperator.RightShiftAssignment or
                 BinaryOperator.NullCoalesceAssignment => true,
@@ -220,16 +236,77 @@ namespace Deimos.AST.Expressions
                 BinaryOperator.DivisionAssignment => "/=",
                 BinaryOperator.ModulusAssignment => "%=",
                 BinaryOperator.ExponentiationAssignment => "**=",
-                BinaryOperator.BitewiseAndAssignment => "&=",
-                BinaryOperator.BitewiseOrAssignment => "|=",
-                BinaryOperator.BitewiseXorAssignment => "^=",
+                BinaryOperator.BitwiseAndAssignment => "&=",
+                BinaryOperator.BitwiseOrAssignment => "|=",
+                BinaryOperator.BitwiseXorAssignment => "^=",
                 BinaryOperator.LeftShiftAssignment => "<<=",
                 BinaryOperator.RightShiftAssignment => ">>=",
                 BinaryOperator.NullCoalesceAssignment => "??=",
                 BinaryOperator.IdentityCompare => "is",
                 BinaryOperator.Contains => "in",
-                _ => throw new System.ArgumentOutOfRangeException(nameof(op), $"Unhandled binary operator: {op}"),
+                _ => throw new System.ArgumentOutOfRangeException(nameof(op), $"Unhandled binary operator: {op}")
             };
         }
+
+        public static bool TryToBinaryOperator(this TokenType type, out BinaryOperator op)
+        {
+            BinaryOperator? tempOp = type switch
+            {
+                // Arithmetic
+                TokenType.Plus => BinaryOperator.Addition,
+                TokenType.Minus => BinaryOperator.Subtraction,
+                TokenType.Asterisk => BinaryOperator.Multiplication,
+                TokenType.Slash => BinaryOperator.Division,
+                TokenType.Percent => BinaryOperator.Modulus,
+                TokenType.AsteriskAsterisk => BinaryOperator.Exponentiation,
+
+                // Comparison
+                TokenType.EqualEqual => BinaryOperator.Equal,
+                TokenType.BangEqual => BinaryOperator.NotEqual,
+                TokenType.Less => BinaryOperator.LessThan,
+                TokenType.LessEqual => BinaryOperator.LessThanOrEqual,
+                TokenType.Greater => BinaryOperator.GreaterThan,
+                TokenType.GreaterEqual => BinaryOperator.GreaterThanOrEqual,
+
+                // Logical
+                TokenType.AmpersandAmpersand => BinaryOperator.LogicalAnd,
+                TokenType.PipePipe => BinaryOperator.LogicalOr,
+                TokenType.NullCoalesce => BinaryOperator.NullCoalescing,
+
+                // Bitwise
+                TokenType.Ampersand => BinaryOperator.BitwiseAnd,
+                TokenType.Pipe => BinaryOperator.BitwiseOr,
+                TokenType.Caret => BinaryOperator.BitwiseXor,
+                TokenType.ShiftLeft => BinaryOperator.LeftShift,
+                TokenType.ShiftRight => BinaryOperator.RightShift,
+
+                // Assignment
+                TokenType.Equal => BinaryOperator.Assignment,
+                TokenType.PlusEqual => BinaryOperator.AdditionAssignment,
+                TokenType.MinusEqual => BinaryOperator.SubtractionAssignment,
+                TokenType.AsteriskEqual => BinaryOperator.MultiplicationAssignment,
+                TokenType.SlashEqual => BinaryOperator.DivisionAssignment,
+                TokenType.PercentEqual => BinaryOperator.ModulusAssignment,
+                TokenType.AsteriskAsteriskEqual => BinaryOperator.ExponentiationAssignment,
+                TokenType.AmpersandEqual => BinaryOperator.BitwiseAndAssignment,
+                TokenType.PipeEqual => BinaryOperator.BitwiseOrAssignment,
+                TokenType.CaretEqual => BinaryOperator.BitwiseXorAssignment,
+                TokenType.ShiftLeftEqual => BinaryOperator.LeftShiftAssignment,
+                TokenType.ShiftRightEqual => BinaryOperator.RightShiftAssignment,
+                TokenType.NullCoalesceEqual => BinaryOperator.NullCoalesceAssignment,
+
+                // Other
+                TokenType.Is => BinaryOperator.IdentityCompare,
+                TokenType.In => BinaryOperator.Contains,
+                TokenType.As => BinaryOperator.As,
+                TokenType.Instanceof => BinaryOperator.InstanceOf,
+                _ => null
+            };
+
+            op = tempOp ?? default;
+            return tempOp.HasValue;
+        }
+
+        public static bool TryToBinaryOperator(this Token token, out BinaryOperator op) => token.Type.TryToBinaryOperator(out op);
     }
 }

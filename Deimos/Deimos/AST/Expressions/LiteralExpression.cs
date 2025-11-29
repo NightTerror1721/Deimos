@@ -7,19 +7,19 @@ namespace Deimos.AST.Expressions
 {
     public sealed class LiteralExpression : Expression
     {
-        public object Value { get; }
+        public object? Value { get; }
 
-        public LiteralExpression(object value, TextRange range) : base(range)
+        public LiteralExpression(object? value, TextRange range) : base(range)
         {
             Value = value;
         }
 
-        public LiteralExpression(object value, TextIndex from, TextIndex to) : base(from, to)
+        public LiteralExpression(object? value, TextIndex from, TextIndex to) : base(from, to)
         {
             Value = value;
         }
 
-        public LiteralExpression(object value, int fromLine, int fromColumn, int toLine, int toColumn) :
+        public LiteralExpression(object? value, int fromLine, int fromColumn, int toLine, int toColumn) :
             base(fromLine, fromColumn, toLine, toColumn)
         {
             Value = value;
